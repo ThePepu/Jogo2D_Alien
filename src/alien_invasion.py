@@ -24,7 +24,6 @@ class AlienInvasion:
         """Construtor da classe que inicializa o jogo e injeta abstrações."""
         pygame.init()
         self.settings: Settings = Settings()
-        self.clock: pygame.time.Clock = pygame.time.Clock()
 
         self.screen: Surface = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height)
@@ -70,9 +69,8 @@ class AlienInvasion:
             self.event_handler._check_events()
             self._update_game_state()
             self.renderer._render_screen()
-            self.clock.tick(60)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     alien_invasion = AlienInvasion()
     alien_invasion.run_game()
