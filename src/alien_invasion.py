@@ -1,4 +1,5 @@
 import sys
+
 import pygame
 
 try:
@@ -7,6 +8,7 @@ try:
 except ImportError:
     from src.settings import Settings
     from src.ship import Ship
+
 
 class AlienInvasion:
     """Classe principal para gerenciamento do jogo e seus comportamentos."""
@@ -33,7 +35,7 @@ class AlienInvasion:
             # para acessa aos eventos que o Pygame me detecta, só chamar o método event.get()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    sys.exit() # encerra o jogo.
+                    sys.exit()  # encerra o jogo.
 
             # Redesenha a tela com a cor de fundo definida nas configurações
             self.screen.fill(self.settings.bg_color)
@@ -45,7 +47,8 @@ class AlienInvasion:
             pygame.display.flip()
             self.clock.tick(60)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Fazendo uma instancia da classe.
     alien_invasion = AlienInvasion()
     # Após instanciar um objeto, ele pode realizar a chamada de seus comportamentos.
