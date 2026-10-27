@@ -1,31 +1,30 @@
 import sys
-import pygame
 
-try:
-    from settings import Settings
-    from ship import Ship
-except ImportError:
-    from src.settings import Settings
-    from src.ship import Ship
+import pygame
+from pygame.surface import Surface
+
+from settings import Settings
+from ship import Ship
+
 
 class AlienInvasion:
     """Classe principal para gerenciamento do jogo e seus comportamentos."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Construtor da classe que inicializa o jogo e cria os recursos básicos do jogo."""
         pygame.init()
-        self.settings = Settings()
+        self.settings: Settings = Settings()
 
-        self.clock = pygame.time.Clock()
-        self.screen = pygame.display.set_mode(
+        self.clock: pygame.time.Clock = pygame.time.Clock()
+        self.screen: Surface = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height)
         )
         pygame.display.set_caption("Alien Invasion")
 
         # Cria a instância da nave espacial
-        self.ship = Ship(self.screen, self.settings)
+        self.ship: Ship = Ship(self.screen, self.settings)
 
-    def run_game(self):
+    def run_game(self) -> None:
         """Criando um laço de repetição para a tela sempre ficar visível até que
         o usuário decida fechar a janela."""
         while True:
@@ -33,7 +32,7 @@ class AlienInvasion:
             # para acessa aos eventos que o Pygame me detecta, só chamar o método event.get()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    sys.exit() # encerra o jogo.
+                    sys.exit()  # encerra o jogo.
 
             # Redesenha a tela com a cor de fundo definida nas configurações
             self.screen.fill(self.settings.bg_color)
@@ -45,7 +44,8 @@ class AlienInvasion:
             pygame.display.flip()
             self.clock.tick(60)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Fazendo uma instancia da classe.
     alien_invasion = AlienInvasion()
     # Após instanciar um objeto, ele pode realizar a chamada de seus comportamentos.
