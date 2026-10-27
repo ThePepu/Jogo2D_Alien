@@ -2,6 +2,7 @@ import pygame
 from pygame.surface import Surface
 
 from bullet_manager import BulletManager
+from fast_alien import FastAlien
 from fleet_manager import FleetManager
 from game_events import GameEventHandler
 from game_renderer import GameRenderer
@@ -33,7 +34,7 @@ class AlienInvasion:
             self.screen, self.settings, self.ship
         )
         self.fleet_manager: FleetManager = FleetManager(
-            self.screen, self.settings, self.ship
+            self.screen, self.settings, self.ship, FastAlien
         )
         self.event_handler: GameEventHandler = GameEventHandler(
             self.ship, self.bullet_manager
