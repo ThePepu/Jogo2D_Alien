@@ -1,33 +1,30 @@
 import sys
 
 import pygame
+from pygame.surface import Surface
 
-try:
-    from settings import Settings
-    from ship import Ship
-except ImportError:
-    from src.settings import Settings
-    from src.ship import Ship
+from settings import Settings
+from ship import Ship
 
 
 class AlienInvasion:
     """Classe principal para gerenciamento do jogo e seus comportamentos."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Construtor da classe que inicializa o jogo e cria os recursos básicos do jogo."""
         pygame.init()
-        self.settings = Settings()
+        self.settings: Settings = Settings()
 
-        self.clock = pygame.time.Clock()
-        self.screen = pygame.display.set_mode(
+        self.clock: pygame.time.Clock = pygame.time.Clock()
+        self.screen: Surface = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height)
         )
         pygame.display.set_caption("Alien Invasion")
 
         # Cria a instância da nave espacial
-        self.ship = Ship(self.screen, self.settings)
+        self.ship: Ship = Ship(self.screen, self.settings)
 
-    def run_game(self):
+    def run_game(self) -> None:
         """Criando um laço de repetição para a tela sempre ficar visível até que
         o usuário decida fechar a janela."""
         while True:
