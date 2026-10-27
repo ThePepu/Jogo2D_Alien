@@ -3,11 +3,12 @@ from pygame.surface import Surface
 
 from alien import Alien
 from bullet import Bullet
+from interfaces import IBulletManager
 from settings import Settings
 from ship import Ship
 
 
-class BulletManager:
+class BulletManager(IBulletManager):
     """Responsável apenas por criar, atualizar e desenhar os projéteis."""
 
     def __init__(self, screen: Surface, settings: Settings, ship: Ship) -> None:

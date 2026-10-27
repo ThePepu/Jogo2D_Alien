@@ -2,16 +2,16 @@ import sys
 
 import pygame
 
-from bullet_manager import BulletManager
+from interfaces import IBulletManager, IEventHandler
 from ship import Ship
 
 
-class GameEventHandler:
+class GameEventHandler(IEventHandler):
     """Responsável apenas por ler e tratar os eventos do teclado/janela."""
 
-    def __init__(self, ship: Ship, bullet_manager: BulletManager) -> None:
+    def __init__(self, ship: Ship, bullet_manager: IBulletManager) -> None:
         self.ship: Ship = ship
-        self.bullet_manager: BulletManager = bullet_manager
+        self.bullet_manager: IBulletManager = bullet_manager
 
     def _check_events(self) -> None:
         """Responde a eventos de pressionamento de teclas e mouse (fechamento da janela)."""

@@ -6,15 +6,22 @@ from fast_alien import FastAlien
 from fleet_manager import FleetManager
 from game_events import GameEventHandler
 from game_renderer import GameRenderer
+from interfaces import IBulletManager, IEventHandler, IFleetManager, IRenderer
 from settings import Settings
 from ship import Ship
 
 
 class AlienInvasion:
-    """Gerencia o jogo e seus comportamentos."""
+    """Gerencia o jogo e seus comportamentos dependendo de abstrações (DIP)."""
 
-    def __init__(self) -> None:
-        """Construtor da classe que inicializa o jogo e cria os recursos básicos."""
+    def __init__(
+        self,
+        bullet_manager: IBulletManager | None = None,
+        fleet_manager: IFleetManager | None = None,
+        event_handler: IEventHandler | None = None,
+        renderer: IRenderer | None = None,
+    ) -> None:
+        """Construtor da classe que inicializa o jogo e injeta abstrações."""
         pygame.init()
         self.settings: Settings = Settings()
         self.clock: pygame.time.Clock = pygame.time.Clock()
@@ -30,16 +37,17 @@ class AlienInvasion:
         # Mudando a cor do plano de fundo em RGB
         self.bg_color: tuple[int, int, int] = self.settings.bg_color
 
-        self.bullet_manager: BulletManager = BulletManager(
+        # Injeção de dependências baseada em abstrações (DIP)
+        self.bullet_manager: IBulletManager = bullet_manager or BulletManager(
             self.screen, self.settings, self.ship
         )
-        self.fleet_manager: FleetManager = FleetManager(
+        self.fleet_manager: IFleetManager = fleet_manager or FleetManager(
             self.screen, self.settings, self.ship, FastAlien
         )
-        self.event_handler: GameEventHandler = GameEventHandler(
+        self.event_handler: IEventHandler = event_handler or GameEventHandler(
             self.ship, self.bullet_manager
         )
-        self.renderer: GameRenderer = GameRenderer(
+        self.renderer: IRenderer = renderer or GameRenderer(
             self.screen,
             self.bg_color,
             self.ship,
@@ -56,7 +64,7 @@ class AlienInvasion:
     def run_game(self) -> None:
         """Cria um laço de repetição para a tela sempre ficar visível até
         que o usuário decida fechar a janela."""
-        self.fleet_manager.create_fleet()  # Cria a frota de alienígenas para ser desenhada na tela
+        self.fleet_manager.create_fleet()
 
         while True:
             self.event_handler._check_events()

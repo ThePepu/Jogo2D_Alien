@@ -3,10 +3,11 @@ from pygame.surface import Surface
 
 from alien import Alien
 from bullet import Bullet
+from interfaces import IRenderer
 from ship import Ship
 
 
-class GameRenderer:
+class GameRenderer(IRenderer):
     """Responsável apenas por desenhar os elementos do jogo na tela."""
 
     def __init__(

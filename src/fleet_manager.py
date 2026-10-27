@@ -4,11 +4,12 @@ import pygame
 from pygame.surface import Surface
 
 from alien import Alien
+from interfaces import IFleetManager
 from settings import Settings
 from ship import Ship
 
 
-class FleetManager:
+class FleetManager(IFleetManager):
     """Responsável por criar e gerenciar a frota de alienígenas."""
 
     def __init__(
@@ -42,8 +43,6 @@ class FleetManager:
 
     def create_fleet(self) -> None:
         """Cria uma frota de alienígenas."""
-        # Cria um alienígena e calcula o número de alienígenas em uma linha
-        # O espaçamento entre os alienígenas é igual a um alienígena
         alien = self.alien_class(self.screen, self.settings)
         alien_width = alien.rect.width
         alien_height = alien.rect.height
@@ -56,9 +55,7 @@ class FleetManager:
         number_rows = available_space_y // (2 * alien_height)
 
         for row_number in range(number_rows):
-            # Cria a primeira linha de alienígenas
             for alien_number in range(number_aliens_x):
-                # Cria um alienígena e o posiciona na linha
                 self._create_alien(alien_number, row_number, alien_width, alien_height)
 
     def _update_aliens(self) -> None:
